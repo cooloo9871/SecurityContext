@@ -2,7 +2,7 @@
 
 ## This is for training sample, DO NOT USE IT FOR BAD!
 
-## Bulid Image
+## Bulid Image and Run container
 ```
 git clone https://github.com/cooloo9871/SecurityContext.git;cd SecurityContext
 ```
