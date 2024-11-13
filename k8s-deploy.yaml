@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-cgi
+  namespace: default
+  labels:
+    app: my-cgi
+spec:
+  containers:
+  - name: cgi
+    image: taiwanese/securitycontext
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-cgi-service
+  namespace: default
+spec:
+  selector:
+    app: my-cgi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-cgi-ingress
+  namespace: default
+spec:
+  rules:
+    - host: cgi.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-cgi-service
+                port:
+                  number: 80
